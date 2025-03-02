@@ -79,3 +79,4 @@ C:\Assignments\Assessment-Employees\EmployeeManagementSystem\obj\Debug\net8.0\re
 C:\Assignments\Assessment-Employees\EmployeeManagementSystem\obj\Debug\net8.0\EmployeeManagementSystem.pdb
 C:\Assignments\Assessment-Employees\EmployeeManagementSystem\obj\Debug\net8.0\EmployeeManagementSystem.genruntimeconfig.cache
 C:\Assignments\Assessment-Employees\EmployeeManagementSystem\obj\Debug\net8.0\ref\EmployeeManagementSystem.dll
+C:\Assignments\Assessment-Employees\EmployeeManagementSystem\obj\Debug\net8.0\EmployeeManagementSystem.sourcelink.json

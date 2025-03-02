@@ -1,3 +1,4 @@
+//Interface creation
 using EmployeeManagementSystem.Models;
 
 namespace EmployeeManagementSystem.Interfaces

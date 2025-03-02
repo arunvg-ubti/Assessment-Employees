@@ -1,3 +1,4 @@
+//Database Session Connection
 using System;
 using Microsoft.Data.SqlClient;
 using System.IO;

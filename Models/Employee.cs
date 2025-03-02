@@ -1,3 +1,4 @@
+//Model creation
 namespace EmployeeManagementSystem.Models
 {
     public class Employee
