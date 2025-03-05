@@ -1,14 +1,19 @@
 //Interface creation
 using EmployeeManagementSystem.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace EmployeeManagementSystem.Interfaces
 {
     public interface IEmployeeService
     {
-        void AddEmployee(Employee employee);
-        Employee GetEmployee(int id);
-        IEnumerable<Employee> GetAllEmployees();
-        void UpdateEmployee(Employee employee);
-        void DeleteEmployee(int id);
+        Task AddEmployeeAsync(Employee employee);
+        Task<Employee> GetEmployeeAsync(string id);
+        Task<IEnumerable<Employee>> GetAllEmployeesAsync();
+        Task UpdateEmployeeAsync(Employee employee);
+        Task DeleteEmployeeAsync(string id);
+        string GetValidStringInput(string prompt);
+        decimal GetValidDecimalInput(string prompt);
+        DateTime GetValidDateInput(string prompt);
     }
 }

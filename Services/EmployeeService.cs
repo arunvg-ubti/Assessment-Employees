@@ -1,35 +1,54 @@
-//Services Creation
 using EmployeeManagementSystem.Interfaces;
 using EmployeeManagementSystem.Models;
-using System;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace EmployeeManagementSystem.Services
 {
     public class EmployeeService : IEmployeeService
     {
-        private readonly List<Employee> _employees = new List<Employee>();
+        private readonly EmployeeContext _context;
 
-        public int GetValidIntInput(string prompt) //method to check and return valid int input
+        public EmployeeService(EmployeeContext context)
         {
-            while (true)
+            _context = context;
+        }
+
+        public async Task AddEmployeeAsync(Employee employee)
+        {
+            _context.Employees.Add(employee); // Adding employee to the DbSet
+            await _context.SaveChangesAsync(); // Saving changes to the database
+        }
+
+        public async Task<Employee> GetEmployeeAsync(string id)
+        {
+            return await _context.Employees.FirstOrDefaultAsync(e => e.Id == id); // Querying the database using LINQ
+        }
+
+        public async Task<IEnumerable<Employee>> GetAllEmployeesAsync()
+        {
+            return await _context.Employees.ToListAsync(); // Retrieving all employees using LINQ
+        }
+
+        public async Task UpdateEmployeeAsync(Employee employee)
+        {
+            _context.Employees.Update(employee); // Updating employee in the DbSet
+            await _context.SaveChangesAsync(); // Saving changes to the database
+        }
+
+        public async Task DeleteEmployeeAsync(string id)
+        {
+            var employee = await GetEmployeeAsync(id);
+            if (employee != null)
             {
-                Console.WriteLine(prompt);
-                string input = Console.ReadLine()!;
-                if (int.TryParse(input, out int result))
-                {
-                    return result;
-                }
-                else
-                {
-                    Console.WriteLine("\n\nThe employee id cannot be null!");
-                    continue;
-                }
+                _context.Employees.Remove(employee); // Removing employee from the DbSet
+                await _context.SaveChangesAsync(); // Saving changes to the database
             }
         }
 
-        public string GetValidStringInput(string prompt) //method to check and return valid string input
+        public string GetValidStringInput(string prompt)
         {
             while (true)
             {
@@ -46,7 +65,7 @@ namespace EmployeeManagementSystem.Services
             }
         }
 
-        public decimal GetValidDecimalInput(string prompt) //method to check and return valid decimal input
+        public decimal GetValidDecimalInput(string prompt)
         {
             while (true)
             {
@@ -63,63 +82,30 @@ namespace EmployeeManagementSystem.Services
             }
         }
 
-        public void AddEmployee() //Method to add employee(s) - without parameter
+        public DateTime GetValidDateInput(string prompt)
         {
-            Console.WriteLine("\n\nYou've chosen to add an employee!\n\n");
-
-            int id = GetValidIntInput("Enter the employee id: ");
-            string name = GetValidStringInput("Enter the name of employee: ");
-            string position = GetValidStringInput("Enter the position of employee: ");
-            decimal salary = GetValidDecimalInput("Enter the salary of employee: ");
-
-            _employees.Add(new Employee { Id = id, Name = name, Position = position, Salary = salary });
-            Console.WriteLine("\nEmployee added successfully!");
-        }
-
-        public void AddEmployee(Employee employee) //Method to add employee(s) - with parameter
-        {
-            _employees.Add(employee);
-            Console.WriteLine("\nEmployee added successfully!");
-        }
-
-        public Employee GetEmployee(int id) //Method to search employee(s)
-        {
-            return _employees.FirstOrDefault(e => e.Id == id);
-        }
-
-        public IEnumerable<Employee> GetAllEmployees() //Method to display all employees
-        {
-            return _employees;
-        }
-
-        public void UpdateEmployee(Employee employee) //Method to update existing employee(s)
-        {
-            var existingEmployee = GetEmployee(employee.Id);
-            if (existingEmployee != null)
+            while (true)
             {
-                existingEmployee.Name = employee.Name;
-                existingEmployee.Position = employee.Position;
-                existingEmployee.Salary = employee.Salary;
-                Console.WriteLine("\nEmployee updated successfully!");
-            }
-            else
-            {
-                Console.WriteLine("\nEmployee not found!");
+                Console.WriteLine(prompt);
+                string input = Console.ReadLine()!;
+                if (DateTime.TryParse(input, out DateTime result))
+                {
+                    return result;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input! Please enter a valid date (yyyy-mm-dd).");
+                }
             }
         }
+    }
 
-        public void DeleteEmployee(int id) //Method to delete employee(s)
-        {
-            var employee = GetEmployee(id);
-            if (employee != null)
+    public class EmployeeContext : DbContext
+    {
+        public EmployeeContext(DbContextOptions<EmployeeContext> options) : base(options)
             {
-                _employees.Remove(employee);
-                Console.WriteLine("\nEmployee deleted successfully!");
             }
-            else
-            {
-                Console.WriteLine("\nEmployee not found!");
-            }
-        }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }
