@@ -23,4 +23,4 @@
 - Leveraging NuGet packages to accomplish the end goal
 - Creation of a new branch in github
 - Merging of the new branch with code to the main branch
-- Using LINQ to perform SQL operations on user input 
+- Using LINQ to perform SQL operations on user input
