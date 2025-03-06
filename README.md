@@ -24,3 +24,10 @@
 - Creation of a new branch in github
 - Merging of the new branch with code to the main branch
 - Using LINQ to perform SQL operations on user input 
+
+#  File Structure
+## |__Models
+## |    |__Employee.cs
+## |     |__User.cs
+## |
+## |

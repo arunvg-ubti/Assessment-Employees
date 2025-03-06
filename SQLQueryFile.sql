@@ -20,6 +20,10 @@ create table Users(Username nvarchar(50) primary key,
 Password nvarchar(50), IsAdmin bit);
 go
 
+select * from users;
+
+select * from employees;
+
 INSERT INTO Employees (Id, Name, Position, Salary, DateOfBirth, Email, PhoneNumber, Department, DateOfJoining) VALUES
 ('E101', 'John Doe', 'Manager', 75000, '1985-07-23', 'john.doe@example.com', '+1-234-567-8901', 'Human Resources', '2020-01-15'),
 ('E102', 'Jane Smith', 'Developer', 65000, '1990-05-12', 'jane.smith@example.com', '+1-234-567-8902', 'IT', '2019-03-10'),
